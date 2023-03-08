@@ -51,7 +51,10 @@ local function get_buf_range_url_data(mode, user_opts)
     return nil
   end
   mode = mode or "n"
-  local remote = git.get_branch_remote() or user_opts.remote
+  local remote = user_opts.remote
+  if not remote then
+    remote = git.get_branch_remote()
+  end
   local repo_url_data = git.get_repo_data(remote)
   if not repo_url_data then
     return nil
